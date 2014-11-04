@@ -24,7 +24,11 @@ $obj = json_decode($json);
             ?>
         </select>
         
-        <select id="course" name="course" onchange="">
+        <select id="course" name="course" onchange="LoadSection();">
+            <option></option>
+        </select>
+        
+        <select id="section" name="section" onchange="">
             <option></option>
         </select>
     </body>

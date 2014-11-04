@@ -9,16 +9,26 @@ function LoadCourse() {
     // selected value of department
     value = $("#department").val();
 
-    //console.log(value);
+    console.log(value);
     //console.log($.getJSON(url + '?request=course&value=' + value));
+    console.log(url + '?request=course&value=' + value);
     
     $.getJSON(url + '?request=course&value=' + value, function (data) {
-        //var items = [];
+
+        
         $.each(data, function (key, val) {
-//            $('#course')
-//                .append($('<option>', { val : key })
-//                .text(val)); 
-            console.log(val);
+            if (key === 'status'){
+                console.log(val);
+                //$("#course").empty().fadeOut(); // clear the dropdown on success
+            } else {
+                $.each(val, function(row, item) {
+                    $("#course")
+                        .append($('<option>', { row : item.course_number })
+                        .text(item.course_number));
+                    //$("#course").fadeIn();
+                    console.log(item.course_number);
+                });
+            }
         });
     });
 }
