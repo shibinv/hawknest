@@ -19,7 +19,7 @@ $obj = json_decode($json);
             <?php 
                 foreach ($obj->result as $option) {
                     //var_dump($option); die;
-                    echo '<option value="'.$option->dept_id.'">'.$option->dept_subject.'</option>';
+                    echo '<option value="'.$option->dept_subject.'">'.$option->dept_subject.'</option>';
                 }
             ?>
         </select>
