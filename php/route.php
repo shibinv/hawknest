@@ -6,6 +6,6 @@
  * and open the template in the editor.
  */
 
-$request = file_get_contents('http://server.navsquire.us/test.php?'.$_SERVER['QUERY_STRING']);
-
-echo $request;
+$request = filter_input(INPUT_SERVER, 'QUERY_STRING');
+$data = file_get_contents('http://server.navsquire.us/test.php?'.$request);
+echo $data;

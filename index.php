@@ -3,22 +3,23 @@
 
 $json = file_get_contents('http://server.navsquire.us/test.php?request=department&type=json');
 $obj = json_decode($json);
-//var_dump($obj->result);
 
+// debugging
+if (isset($obj->status) && $obj->status == "success") {
 ?>
 
 <html>
     <head>
         <script src="js/jquery.js"></script>
         <script src="js/hawk.js"></script>
-        <title>Testing Dropdown</title>
+        <link rel="stylesheet" type="text/css" href="css/hawk.css">
+        <title>Testing Drop-down</title>
     </head>
     <body>
         <select id="department" name="department" onchange="LoadCourse();">
             <option></option>
             <?php 
                 foreach ($obj->result as $option) {
-                    //var_dump($option); die;
                     echo '<option value="'.$option->dept_subject.'">'.$option->dept_subject.'</option>';
                 }
             ?>
@@ -28,11 +29,25 @@ $obj = json_decode($json);
             <option></option>
         </select>
         
-        <select id="section" name="section" onchange="">
+        <select id="section" name="section" onchange="GetRoom();">
             <option></option>
         </select>
+        
+        <div id="result"></div>
+
+        <div id="mapwrapper">
+            <img id="pin" src="img/pin.png" alt="Pin">
+            <img id="map1" src="img/map-l1.png" alt="Level 1" class="map">
+            <img id="map2" src="img/map-l2.png" alt="Level 2" class="map">
+            
+        </div>
+
     </body>
 
 </html>
 
 
+<?php 
+    } else { // show an error if API server is unavailable
+        echo "A server error occured please try again in a few mins: " . $obj->message;
+    }
