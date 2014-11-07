@@ -5,6 +5,19 @@
  */
 url = 'php/route.php';
 
+$(function() {
+    $("#search").autocomplete({
+        source: "php/search.php",
+        minLength: 3,
+        select: function(event, ui) {
+            GetRoom(ui.item.value);
+            $("#section").empty().prop('disabled', 'disabled'); // clear and disable section
+            $("#course").empty().prop('disabled', 'disabled'); // clear and disable course
+            $("#department").val(" "); // clear the departmnet dropdown
+        }
+    });
+});
+
 function LoadCourse() {
     // selected value of department
     department = $("#department").val();
@@ -85,8 +98,9 @@ function LoadSection() {
     }
 }
 
-function GetRoom() {
-    classnumber = $("#section").val();
+function GetRoom(classnumber) {
+
+    classnumber = classnumber || $("#section").val();
 
     if (classnumber !== "") {
         request = url + '?request=room&value=' + classnumber;
@@ -95,7 +109,7 @@ function GetRoom() {
         $.getJSON(request, function(data) {
             if (data.status === "success") {
                 $("#result").html(
-                        'Room:' + data.result[0].room_number + 
+                        'Room:' + data.result[0].room_number +
                         '<br>Map Coordinates: ' + data.result[0].room_xval + ',' + data.result[0].room_yval
                         );
                 ShowMap(data.result[0].room_number, data.result[0].room_xval, data.result[0].room_yval);
@@ -114,13 +128,14 @@ function ShowMap(room, x, y) {
     } else if (room.charAt(1) === "2") {
         floor = 2;
     } else {
+        HideMap();
         return;
     }
-    
-    $("#map"+floor).show();
-    $("#pin").css("left", x-32);
-    $("#pin").css("top", y-64);
-    $("#pin").toggle(750);
+
+    $("#map" + floor).show();
+    $("#pin").css("left", x - 32);
+    $("#pin").css("top", y - 64);
+    $("#pin").show(750);
 
 }
 

@@ -1,9 +1,10 @@
 <?php
 
 
-$json = file_get_contents('http://server.navsquire.us/test.php?request=department&type=json');
+$json = file_get_contents('http://localhost/php/route.php?request=department&type=json');
 $obj = json_decode($json);
 
+//var_dump($obj);
 // debugging
 if (isset($obj->status) && $obj->status == "success") {
 ?>
@@ -11,7 +12,9 @@ if (isset($obj->status) && $obj->status == "success") {
 <html>
     <head>
         <script src="js/jquery.js"></script>
+        <script src="js/jquery-ui.js"></script>
         <script src="js/hawk.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
         <link rel="stylesheet" type="text/css" href="css/hawk.css">
         <title>Testing Drop-down</title>
     </head>
@@ -32,6 +35,8 @@ if (isset($obj->status) && $obj->status == "success") {
         <select id="section" name="section" onchange="GetRoom();">
             <option></option>
         </select>
+        <br>
+        <input id="search" type="text"  placeholder="Search...">
         
         <div id="result"></div>
 
