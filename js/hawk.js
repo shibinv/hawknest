@@ -10,6 +10,7 @@ $(function() {
         source: "php/search.php",
         minLength: 3,
         select: function(event, ui) {
+            HideMap();
             GetRoom(ui.item.value);
             $("#section").empty().prop('disabled', 'disabled'); // clear and disable section
             $("#course").empty().prop('disabled', 'disabled'); // clear and disable course

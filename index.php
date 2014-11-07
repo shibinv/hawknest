@@ -19,24 +19,32 @@ if (isset($obj->status) && $obj->status == "success") {
         <title>Testing Drop-down</title>
     </head>
     <body>
-        <select id="department" name="department" onchange="LoadCourse();">
-            <option></option>
-            <?php 
-                foreach ($obj->result as $option) {
-                    echo '<option value="'.$option->dept_subject.'">'.$option->dept_subject.'</option>';
-                }
-            ?>
-        </select>
+        <fieldset>
+            <legend>Select by Course</legend>
+            <select id="department" name="department" onchange="LoadCourse();">
+                <option></option>
+                <?php 
+                    foreach ($obj->result as $option) {
+                        echo '<option value="'.$option->dept_subject.'">'.$option->dept_subject.'</option>';
+                    }
+                ?>
+            </select>
+
+            <select id="course" name="course" onchange="LoadSection();">
+                <option></option>
+            </select>
+
+            <select id="section" name="section" onchange="GetRoom();">
+                <option></option>
+            </select>
+        </fieldset>
         
-        <select id="course" name="course" onchange="LoadSection();">
-            <option></option>
-        </select>
+
         
-        <select id="section" name="section" onchange="GetRoom();">
-            <option></option>
-        </select>
-        <br>
-        <input id="search" type="text"  placeholder="Search...">
+        <fieldset>
+            <legend>Search</legend>
+            <input id="search" type="text"  placeholder="Search...">
+        </fieldset>
         
         <div id="result"></div>
 
