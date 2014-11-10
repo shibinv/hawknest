@@ -23,3 +23,10 @@ and open the template in the editor.
     height: 400px;
     margin: auto;
 }
+
+#maptester {
+    position: relative;
+    width: 905px;
+    height: 515px;
+    margin: auto;
+}

@@ -13,6 +13,7 @@ if (isset($obj->status) && $obj->status == "success") {
     <head>
         <script src="js/jquery.js"></script>
         <script src="js/jquery-ui.js"></script>
+        <script src="js/pathfinding.js"></script>
         <script src="js/hawk.js"></script>
         <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
         <link rel="stylesheet" type="text/css" href="css/hawk.css">
@@ -53,8 +54,13 @@ if (isset($obj->status) && $obj->status == "success") {
             <img id="map1" src="img/map-l1.png" alt="Level 1" class="map">
             <img id="map2" src="img/map-l2.png" alt="Level 2" class="map">
             
+        </div><br><br><br><br><br><br>
+        
+        <div id="maptester">
+        <canvas id="myCanvas" width="903" height="513" style="border:1px solid #000000;"></canvas><br>
+        <input type="button" onclick="Test(15, 7);" value="test">
         </div>
-
+        <img id="testmap" src="img/testmap.png" alt="testmap" style="visibility: hidden;">
     </body>
 
 </html>
