@@ -80,7 +80,7 @@ function LoadSection() {
                     } else {
                         $.each(val, function(row, item) {
                             $("#section")
-                                    .append($('<option>', {value: item.class_number})
+                                    .append($('<option>', {value: item.room_number})
                                             .text(item.course_section));
                             //$("#course").fadeIn();
                             console.log(item.course_number);
@@ -99,12 +99,12 @@ function LoadSection() {
     }
 }
 
-function GetRoom(classnumber) {
+function GetRoom(roomnumber) {
 
-    classnumber = classnumber || $("#section").val();
+    roomnumber = roomnumber || $("#section").val();
 
-    if (classnumber !== "") {
-        request = url + '?request=room&value=' + classnumber;
+    if (roomnumber !== "") {
+        request = url + '?request=room&value=' + roomnumber;
 
         console.log(request);
         $.getJSON(request, function(data) {
