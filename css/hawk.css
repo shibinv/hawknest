@@ -30,3 +30,36 @@ and open the template in the editor.
     height: 515px;
     margin: auto;
 }
+
+/* CSS Document */
+
+body {
+    background-color: rgb(51,102,153);
+
+   }
+h1 {
+    color: black;
+    margin-left: 20px;
+	}
+
+/* unvisited link */
+a:link {
+    color: #ffffff;
+}
+
+/* visited link */
+a:visited {
+    color: #ffffff;
+}
+
+/* mouse over link */
+a:hover {
+    color: #A3B5C7;
+}
+
+/* selected link */
+a:active {
+     color: #ffffff;
+}
+
+
