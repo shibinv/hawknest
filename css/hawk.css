@@ -33,6 +33,7 @@ and open the template in the editor.
 
 /* CSS Document */
 
+/*
 body {
     background-color: rgb(51,102,153);
 
@@ -42,24 +43,25 @@ h1 {
     margin-left: 20px;
 	}
 
-/* unvisited link */
+ unvisited link 
 a:link {
     color: #ffffff;
 }
 
-/* visited link */
+ visited link 
 a:visited {
     color: #ffffff;
 }
 
-/* mouse over link */
+ mouse over link 
 a:hover {
     color: #A3B5C7;
 }
 
-/* selected link */
+ selected link 
 a:active {
      color: #ffffff;
 }
+*/
 
 
