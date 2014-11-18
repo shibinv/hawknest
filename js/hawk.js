@@ -109,10 +109,10 @@ function GetRoom(roomnumber) {
         console.log(request);
         $.getJSON(request, function(data) {
             if (data.status === "success") {
-                $("#result").html(
-                        'Room:' + data.result[0].room_number +
-                        '<br>Map Coordinates: ' + data.result[0].room_xval + ',' + data.result[0].room_yval
-                        );
+                //$("#result").html(
+                //        'Room:' + data.result[0].room_number +
+                //        '<br>Map Coordinates: ' + data.result[0].room_xval + ',' + data.result[0].room_yval
+                //        );
                 ShowMap(data.result[0].room_number, data.result[0].room_xval, data.result[0].room_yval);
                 //Test(data.result[0].room_xval, data.result[0].room_yval);
                 console.log(data.result);
