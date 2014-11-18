@@ -67,7 +67,7 @@ if (isset($obj->status) && $obj->status == "success") {
         <img src="img/links.jpg" usemap="#linksmap" width="200" height="400" alt="" style="float:left;">
         <map name="linksmap">
             <area shape="rect" coords="0,80,200,130" alt="Map" href="maps.php">
-            <area shape="rect" coords="0,150,200,200" alt="App" href="app.php">
+            <area shape="rect" coords="0,150,200,200" alt="App" href="appdl.php">
             <area shape="rect" coords="0,220,200,270" alt="Tutorial" href="tutorial.php">
             <area shape="rect" coords="0,280,200,330" alt="Help" href="faq.php">
         </map>
