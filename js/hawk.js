@@ -107,11 +107,15 @@ function GetRoom(roomnumber) {
         $.getJSON(request, function(data) {
             if (data.status === "success") {
                 $("#result").html(
-                        'Room:' + data.result[0].room_number);
+                        'Room: ' + data.result[0].room_number);
                         //'<br>Map Coordinates: ' + data.result[0].room_xval + ',' + data.result[0].room_yval
                         //);
                 //ShowPin(data.result[0].room_xval, data.result[0].room_yval);
-                DrawMap(data.result[0].door_x, data.result[0].door_y, data.result[0].room_xval, data.result[0].room_yval);
+                DrawMap(
+                    data.result[0].door_x, data.result[0].door_y, 
+                    data.result[0].room_xval, data.result[0].room_yval,
+                    data.result[0].room_number
+                );
                 console.log(data.result);
             } else {
                 console.log(data.status);
@@ -121,7 +125,19 @@ function GetRoom(roomnumber) {
     }
 }
 
-function DrawMap(dx, dy, px, py) {
+function DrawMap(dx, dy, px, py, room) {
+    
+    // determine what floor room is in
+    if (room.charAt(1) === "1") {
+        floor = 1;
+    } else if(room.charAt(1) === "2")  {
+        floor = 2;
+    } else {
+        $("#mapwrapper").hide();
+        return; // online or unknown room;
+    }
+    
+    // create a grid for map
     var matrix = [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -142,17 +158,52 @@ function DrawMap(dx, dy, px, py) {
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     ];
     
+    // set location of stairs
     var stair = [15, 7];
     
+    // create the grid
     var grid = new PF.Grid(30, 17, matrix);
     var finder = new PF.AStarFinder();
-    var path = finder.findPath(16, 1, dx, dy, grid);
+    var path, path;
+    
+    // find path for level 1
+    if (floor === 1) {
+        path = finder.findPath(16, 1, dx, dy, grid);
+        $("#mapcanvas2").hide();
+    } else {
+        path = finder.findPath(16, 1, stair[0], stair[1], grid);
+    }
+    Levels(1, path);
+    // find path for level 2
+    if (floor === 2) {
+        path = finder.findPath(stair[0], stair[1], dx, dy, grid);
+        Levels(2, path);
+        $("#mapcanvas2").show();
+    }
     
     console.log("Destination: " + dx + ", " + dy);
-    
-    var c = document.getElementById("mapcanvas");
+    console.log("Floor: " + floor);
+
+    // grab the destination floor
+    var c = document.getElementById("mapcanvas"+floor);
     var ctx = c.getContext("2d");
-    var img = document.getElementById("map1");
+    
+    // draw pin on destination floor
+    img = document.getElementById("pin"); 
+    ctx.drawImage(img, px-16, py-32, 32, 32);
+    
+    // show the canvas
+    $("#mapwrapper").show();
+}
+
+function Levels(level, path) {
+    
+    console.log("Level: " + level);
+    console.log("Path: " + path);
+    
+    var c = document.getElementById("mapcanvas"+level);
+    var ctx = c.getContext("2d");
+    var img = document.getElementById("map"+level);
     
     // clear the canvas
     ctx.clearRect (0, 0, 750, 425);
@@ -182,10 +233,5 @@ function DrawMap(dx, dy, px, py) {
         ctx.stroke();
     }
     
-    // draw pin
-    img = document.getElementById("pin"); 
-    ctx.drawImage(img, px-16, py-32, 32, 32);
-    
 }
-
 
