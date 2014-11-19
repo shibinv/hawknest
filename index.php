@@ -51,7 +51,7 @@ require_once 'php/menu.php';
                 <div id="result"></div>
                 <div class="pure-g">
                     <div id="mapwrapper" class="pure-u-1">
-                        <canvas id="myCanvas" width="750" height="425" class="pure-img-responsive"></canvas>
+                        <canvas id="mapcanvas" width="750" height="425" class="pure-img-responsive"></canvas>
                         <!--<input type="button" onclick="Test(3, 3);" value="test">-->
                         <img id="pin" src="img/pin32.png" alt="Pin" class="map">
                         <img id="map1" src="img/map-l1.png" alt="Level 1" class="map">
