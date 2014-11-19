@@ -33,11 +33,11 @@ require_once 'php/menu.php';
                             ?>
                         </select>
 
-                        <select id="course" name="course" onchange="LoadSection();">
+                        <select id="course" name="course" onchange="LoadSection();" style="display:none;">
                             <option></option>
                         </select>
 
-                        <select id="section" name="section" onchange="GetRoom();">
+                        <select id="section" name="section" onchange="GetRoom();" style="display:none;">
                             <option></option>
                         </select>
                         
@@ -46,20 +46,27 @@ require_once 'php/menu.php';
                     <!--SEARCH-->
                     <fieldset>
                         <legend>Search</legend>
-                        <input id="search" type="text"  placeholder="Search...">
+                        <input id="search" type="text"  placeholder="Search..." class="pure-u-1-2">
                     </fieldset>
                 </form>
                 <div id="result"></div>
-                <div id="mapwrapper" style="float:left;">
-                    <img id="pin" src="img/pin.png" alt="Pin">
+                <div class="pure-g">
+                    <div id="mapwrapper" class="pure-u-1">
+                    
+                    
+                    <canvas id="mapcanvas" width="750" height="425" class="pure-img-responsive"></canvas>
+                    <!--<input type="button" onclick="Test(3, 3);" value="test">-->
+                    <img id="pin" src="img/pin32.png" alt="Pin" class="map">
                     <img id="map1" src="img/map-l1.png" alt="Level 1" class="map">
                     <img id="map2" src="img/map-l2.png" alt="Level 2" class="map">
+                    </div>
                 </div>
                 
-                <div id="maptester">
-                    <canvas id="myCanvas" width="750" height="478" style="border:1px solid #000000;"></canvas><br>
-                    <input type="button" onclick="Test(3, 3);" value="test">
-                </div>
+                <!-- <div id="mapwrapper" style="float:left; display:none;">
+                    
+                </div> -->
+                
+                
         
 <?php require_once 'php/footer.php';
 

@@ -11,15 +11,14 @@ $obj = json_decode($json);
 
 //var_dump($obj);
 // debugging
-if (isset($obj->status) && $obj->status == "success") {
-
 $title = "Hawknest - Home";
+
+if (isset($obj->status) && $obj->status == "success") {
 
 require_once 'php/header.php';
 require_once 'php/menu.php';
 ?>
 
-            
                 <form class="pure-form">
                     <!--Course Selection Dropdown Boxes-->
                     <fieldset>
@@ -33,11 +32,11 @@ require_once 'php/menu.php';
                             ?>
                         </select>
 
-                        <select id="course" name="course" onchange="LoadSection();">
+                        <select id="course" name="course" onchange="LoadSection();" style="display:none;">
                             <option></option>
                         </select>
 
-                        <select id="section" name="section" onchange="GetRoom();">
+                        <select id="section" name="section" onchange="GetRoom();" style="display:none;">
                             <option></option>
                         </select>
                         
@@ -50,14 +49,20 @@ require_once 'php/menu.php';
                     </fieldset>
                 </form>
                 <div id="result"></div>
-                <div id="mapwrapper" style="float:left;">
-                    <img id="pin" src="img/pin.png" alt="Pin">
-                    <img id="map1" src="img/map-l1.png" alt="Level 1" class="map">
-                    <img id="map2" src="img/map-l2.png" alt="Level 2" class="map">
+                <div class="pure-g">
+                    <div id="mapwrapper" class="pure-u-1">
+                        <canvas id="myCanvas" width="750" height="425" class="pure-img-responsive"></canvas>
+                        <!--<input type="button" onclick="Test(3, 3);" value="test">-->
+                        <img id="pin" src="img/pin32.png" alt="Pin" class="map">
+                        <img id="map1" src="img/map-l1.png" alt="Level 1" class="map">
+                        <img id="map2" src="img/map-l2.png" alt="Level 2" class="map">
+                    </div>
                 </div>
-        
-<?php require_once 'php/footer.php';
+                
+<?php 
 
-    } else { // show an error if API server is unavailable
-        echo "A server error occured please try again in a few mins: " . $obj->message;
-    }
+require_once 'php/footer.php';
+
+} else { // show an error if API server is unavailable
+    echo "A server error occured please try again in a few mins: " . $obj->message;
+}

@@ -10,10 +10,10 @@ $(function() {
         source: "php/search.php",
         minLength: 3,
         select: function(event, ui) {
-            HideMap();
+            //HideMap();
             GetRoom(ui.item.value);
-            $("#section").empty().prop('disabled', 'disabled'); // clear and disable section
-            $("#course").empty().prop('disabled', 'disabled'); // clear and disable course
+            $("#section").empty().hide(); // clear and disable section
+            $("#course").empty().hide(); // clear and disable course
             $("#department").val(" "); // clear the departmnet dropdown
         }
     });
@@ -33,10 +33,10 @@ function LoadCourse() {
                 $.each(data, function(key, val) {
                     if (key === 'status') {
                         console.log(val);
-                        $("#course").empty().prop('disabled', false); //.fadeOut(); // clear the dropdown on success
+                        $("#course").empty().show(300); //.fadeOut(); // clear the dropdown on success
                         $("#course").html('<option></option>');
-                        $("#section").empty().prop('disabled', 'disabled');
-                        HideMap();
+                        $("#section").empty().hide();
+                        //HideMap();
                     } else {
                         $.each(val, function(row, item) {
                             $("#course")
@@ -53,9 +53,8 @@ function LoadCourse() {
             }
         });
     } else {
-        $("#section").empty().prop('disabled', 'disabled');
-        $("#course").empty().prop('disabled', 'disabled');
-        HideMap();
+        $("#section").empty().hide(300);
+        $("#course").empty().hide(300);
     }
 }
 
@@ -74,9 +73,8 @@ function LoadSection() {
                 $.each(data, function(key, val) {
                     if (key === 'status') {
                         console.log(val);
-                        $("#section").empty().prop('disabled', false); //.fadeOut(); // clear the dropdown on success
+                        $("#section").empty().show(300); //.fadeOut(); // clear the dropdown on success
                         $("#section").html('<option></option>');
-                        HideMap();
                     } else {
                         $.each(val, function(row, item) {
                             $("#section")
@@ -94,8 +92,7 @@ function LoadSection() {
         });
 
     } else {
-        $("#section").empty().prop('disabled', 'disabled');
-        HideMap();
+        $("#section").empty().hide();
     }
 }
 
@@ -113,8 +110,8 @@ function GetRoom(roomnumber) {
                         'Room:' + data.result[0].room_number);
                         //'<br>Map Coordinates: ' + data.result[0].room_xval + ',' + data.result[0].room_yval
                         //);
-                ShowMap(data.result[0].room_number, data.result[0].room_xval, data.result[0].room_yval);
-                Test(data.result[0].door_x, data.result[0].door_y);
+                //ShowPin(data.result[0].room_xval, data.result[0].room_yval);
+                DrawMap(data.result[0].door_x, data.result[0].door_y, data.result[0].room_xval, data.result[0].room_yval);
                 console.log(data.result);
             } else {
                 console.log(data.status);
@@ -124,31 +121,7 @@ function GetRoom(roomnumber) {
     }
 }
 
-function ShowMap(room, x, y) {
-    if (room.charAt(1) === "1") {
-        floor = 1;
-    } else if (room.charAt(1) === "2") {
-        floor = 2;
-    } else {
-        HideMap();
-        return;
-    }
-
-    $("#map" + floor).show();
-    $("#pin").css("left", x - 32);
-    $("#pin").css("top", y - 64);
-    $("#pin").show(750);
-
-}
-
-function HideMap() {
-    $("#map1").hide();
-    $("#map2").hide();
-    $("#pin").hide();
-    $("result").hide();
-}
-
-function Test(dx,dy) {
+function DrawMap(dx, dy, px, py) {
     var matrix = [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -171,47 +144,48 @@ function Test(dx,dy) {
     
     var stair = [15, 7];
     
-    var grid = new PF.Grid(30, 17, matrix); 
+    var grid = new PF.Grid(30, 17, matrix);
     var finder = new PF.AStarFinder();
     var path = finder.findPath(16, 1, dx, dy, grid);
     
     console.log("Destination: " + dx + ", " + dy);
     
-    var c = document.getElementById("myCanvas");
+    var c = document.getElementById("mapcanvas");
     var ctx = c.getContext("2d");
     var img = document.getElementById("map1");
     
-    ctx.clearRect ( 0 , 0 , 750 , 478 );
+    // clear the canvas
+    ctx.clearRect (0, 0, 750, 425);
     
-    ctx.drawImage(img, 0, 0, 750, 478);
+    // draw map on to canvas
+    ctx.drawImage(img, 0, 0, 750, 425);
     
-    
-    
-    ctx.rect(path[0][0]*25, path[0][1]*25, (path[0][0])+8, (path[0][1])+25);
-    ctx.fillStyle = 'green';
+    // draw a ractangle at starting location
+    ctx.beginPath();
+    ctx.rect(path[0][0]*25, path[0][1]*25, 25, 25);
+    ctx.fillStyle = '#50eb5f';
     ctx.fill();
     
-    
-    ctx.rect(path[path.length-1][0]*25, path[path.length-1][1]*25, (path[path.length-1][0])+15, (path[path.length-1][1])+15);
+    // draw a ractangle at ending location
+    ctx.beginPath();
+    ctx.rect((path[path.length-1][0]*25), path[path.length-1][1]*25, 25, 25);
     ctx.fillStyle = 'red';
     ctx.fill();
-    //ctx.lineWidth = 7;
-    //ctx.strokeStyle = 'black';
-    //ctx.stroke();
     
+    // draw the path
+    ctx.beginPath();
     ctx.strokeStyle="#fdb913";
     ctx.lineWidth = 3;
-    
     for(x=1; x<path.length; x++) {
         ctx.moveTo((path[x-1][0]+.5)*25, (path[x-1][1]+.5)*25);
         ctx.lineTo((path[x][0]+.5)*25, (path[x][1]+.5)*25);
         ctx.stroke();
     }
-//    var c = document.getElementById("myCanvas");
-//    var ctx = c.getContext("2d");
-//    ctx.moveTo(13*25,0*25);
-//    ctx.lineTo(22*25,15*25);
-//    ctx.stroke();
+    
+    // draw pin
+    img = document.getElementById("pin"); 
+    ctx.drawImage(img, px-16, py-32, 32, 32);
+    
 }
 
 
