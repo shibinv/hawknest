@@ -109,12 +109,12 @@ function GetRoom(roomnumber) {
         console.log(request);
         $.getJSON(request, function(data) {
             if (data.status === "success") {
-                //$("#result").html(
-                //        'Room:' + data.result[0].room_number +
-                //        '<br>Map Coordinates: ' + data.result[0].room_xval + ',' + data.result[0].room_yval
-                //        );
+                $("#result").html(
+                        'Room:' + data.result[0].room_number);
+                        //'<br>Map Coordinates: ' + data.result[0].room_xval + ',' + data.result[0].room_yval
+                        //);
                 ShowMap(data.result[0].room_number, data.result[0].room_xval, data.result[0].room_yval);
-                //Test(data.result[0].room_xval, data.result[0].room_yval);
+                Test(data.result[0].door_x, data.result[0].door_y);
                 console.log(data.result);
             } else {
                 console.log(data.status);
@@ -145,6 +145,7 @@ function HideMap() {
     $("#map1").hide();
     $("#map2").hide();
     $("#pin").hide();
+    $("result").hide();
 }
 
 function Test(dx,dy) {
@@ -172,22 +173,38 @@ function Test(dx,dy) {
     
     var grid = new PF.Grid(30, 17, matrix); 
     var finder = new PF.AStarFinder();
-    var path = finder.findPath(16, 0, 3, 14, grid);
+    var path = finder.findPath(16, 1, dx, dy, grid);
     
-    console.log("Destination: " + Math.round(dx/25) + ", " + Math.round(dy/25));
+    console.log("Destination: " + dx + ", " + dy);
     
     var c = document.getElementById("myCanvas");
     var ctx = c.getContext("2d");
-    var img = document.getElementById("testmap");
+    var img = document.getElementById("map1");
     
-    ctx.drawImage(img, 0, 0, 903, 513);
+    ctx.clearRect ( 0 , 0 , 750 , 478 );
     
-    ctx.strokeStyle="red";
-    ctx.lineWidth = 5;
+    ctx.drawImage(img, 0, 0, 750, 478);
+    
+    
+    
+    ctx.rect(path[0][0]*25, path[0][1]*25, (path[0][0])+8, (path[0][1])+25);
+    ctx.fillStyle = 'green';
+    ctx.fill();
+    
+    
+    ctx.rect(path[path.length-1][0]*25, path[path.length-1][1]*25, (path[path.length-1][0])+15, (path[path.length-1][1])+15);
+    ctx.fillStyle = 'red';
+    ctx.fill();
+    //ctx.lineWidth = 7;
+    //ctx.strokeStyle = 'black';
+    //ctx.stroke();
+    
+    ctx.strokeStyle="#fdb913";
+    ctx.lineWidth = 3;
     
     for(x=1; x<path.length; x++) {
-        ctx.moveTo((path[x-1][0]+.5)*30.1, (path[x-1][1]+.5)*30.1764);
-        ctx.lineTo((path[x][0]+.5)*30.1, (path[x][1]+.5)*30.1764);
+        ctx.moveTo((path[x-1][0]+.5)*25, (path[x-1][1]+.5)*25);
+        ctx.lineTo((path[x][0]+.5)*25, (path[x][1]+.5)*25);
         ctx.stroke();
     }
 //    var c = document.getElementById("myCanvas");

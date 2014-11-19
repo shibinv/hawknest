@@ -40,6 +40,7 @@ require_once 'php/menu.php';
                         <select id="section" name="section" onchange="GetRoom();">
                             <option></option>
                         </select>
+                        
                     </fieldset>
 
                     <!--SEARCH-->
@@ -48,12 +49,12 @@ require_once 'php/menu.php';
                         <input id="search" type="text"  placeholder="Search...">
                     </fieldset>
                 </form>
+                <div id="result"></div>
                 <div id="mapwrapper" style="float:left;">
                     <img id="pin" src="img/pin.png" alt="Pin">
                     <img id="map1" src="img/map-l1.png" alt="Level 1" class="map">
                     <img id="map2" src="img/map-l2.png" alt="Level 2" class="map">
                 </div>
-            
         
 <?php require_once 'php/footer.php';
 
