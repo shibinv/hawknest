@@ -83,7 +83,7 @@ function LoadSection() {
                                     .append($('<option>', {value: item.room_number})
                                             .text(item.course_section));
                             //$("#course").fadeIn();
-                            console.log(item.course_number);
+                            console.log(item);
                         });
                     }
                 });

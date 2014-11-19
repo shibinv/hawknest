@@ -18,7 +18,7 @@
     <script src="js/pathfinding.js"></script>
     <script src="js/hawk.js"></script>
     
-    <title><?=$title?></title>
+    <title>Hawknest - <?=$title?></title>
     
     <link rel="stylesheet" type="text/css" href="css/pure.css">
     <link rel="stylesheet" type="text/css" href="css/side-menu.css">

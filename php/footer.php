@@ -6,7 +6,8 @@
  * and open the template in the editor.
  */
 ?>
-
+                </div>
+            </div>
         </div>
         <script src="js/ui.js"></script>
     </body>
