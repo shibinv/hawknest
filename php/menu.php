@@ -37,7 +37,7 @@
         </div>
         <div id="main">
             <div class="header">
-                <h1>{Logo}</h1>
-                <h2>Hawknest Navigaton</h2>
+                <img src="img/logo.png" alt="{logo}" class="pure-u-1 pure-img-responsive" >
+                <br><br><br>
             </div>
             <div class="content">

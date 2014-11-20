@@ -11,10 +11,12 @@ $(function() {
         minLength: 3,
         select: function(event, ui) {
             //HideMap();
-            GetRoom(ui.item.value);
-            $("#section").empty().hide(); // clear and disable section
-            $("#course").empty().hide(); // clear and disable course
-            $("#department").val(" "); // clear the departmnet dropdown
+            if (ui.item.value !== 'No Results') {
+                GetRoom(ui.item.value);
+                $("#section").empty().hide(); // clear and disable section
+                $("#course").empty().hide(); // clear and disable course
+                $("#department").val(" "); // clear the departmnet dropdown
+            }
         }
     });
 });

@@ -19,7 +19,7 @@ require_once 'php/header.php';
 require_once 'php/menu.php';
 ?>
 
-                <form class="pure-form pure-form-stacked">
+                <form class="pure-form pure-form-stacked" onsubmit="return false;">
                     <!--Course Selection Dropdown Boxes-->
                     <fieldset>
                         <legend>Select by Course</legend>

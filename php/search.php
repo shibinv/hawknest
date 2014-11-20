@@ -8,37 +8,47 @@
 
 $search = filter_input(INPUT_GET, 'term');
 
-$json = file_get_contents("http://localhost/php/route.php?request=search&value=$search&type=json");
-$obj = json_decode($json);
+if ($search != 'No Results') {
 
-$json = file_get_contents("http://localhost/php/route.php?request=poi&value=$search&type=json");
-$poi = json_decode($json);
+    $json = file_get_contents("http://localhost/php/route.php?request=search&value=$search&type=json");
+    $obj = json_decode($json);
+
+    $json = file_get_contents("http://localhost/php/route.php?request=poi&value=$search&type=json");
+    $poi = json_decode($json);
 
 
-if (isset($obj->status) && $obj->status == "success") {
+    if (isset($obj->status) && $obj->status == "success") {
 
-    foreach ($obj->result as $result) {
-        $data[] = array(
-            'label' =>
-                $result->dept_subject . " " .
-                $result->course_number . " - " .
-                $result->course_name . " - " .
-                $result->fac_last_name . ", " .
-                $result->fac_first_name . " - " .
-                $result->room_number,
-            'value' => $result->room_number
-        );
-    }
-    
-    if (isset($poi->status) && $poi->status == "success") {
-        foreach ($poi->result as $result) {
+        foreach ($obj->result as $result) {
             $data[] = array(
-                'label' => $result->poi_name,
+                'label' =>
+                    $result->dept_subject . " " .
+                    $result->course_number . " - " .
+                    $result->course_name . " - " .
+                    $result->fac_last_name . ", " .
+                    $result->fac_first_name . " - " .
+                    $result->room_number,
                 'value' => $result->room_number
             );
         }
+
+        if (isset($poi->status) && $poi->status == "success") {
+            foreach ($poi->result as $result) {
+                $data[] = array(
+                    'label' => $result->poi_name,
+                    'value' => $result->room_number
+                );
+            }
+        }
+
+        if ($data == "") {
+            $data[] = array(
+                    'label' => 'No Results',
+                    //'value' => 
+                );
+        }
+        echo json_encode($data);
+
     }
-    
-    echo json_encode($data);
-    
+
 }
