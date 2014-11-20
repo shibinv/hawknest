@@ -80,7 +80,7 @@ function LoadSection() {
                     } else {
                         $.each(val, function(row, item) {
                             $("#section")
-                                    .append($('<option>', {value: item.room_number})
+                                    .append($('<option>', {value: item.course_section})
                                             .text(item.course_section));
                             //$("#course").fadeIn();
                             console.log(item);
@@ -100,29 +100,75 @@ function LoadSection() {
 
 function GetRoom(roomnumber) {
 
-    roomnumber = roomnumber || $("#section").val();
+    //roomnumber = roomnumber || $("#section").val();
+     
+    course = $("#course").val();
+    department = $("#department").val();
 
-    if (roomnumber !== "") {
-        request = url + '?request=room&value=' + roomnumber;
+    if (course !== "" && department !== "") {
+        request = url + '?request=section&value=' + department + "&value2=" + course;
+        
 
-        console.log(request);
+//    if (roomnumber !== "") {
+//        request = url + '?request=room&value=' + roomnumber;
+
+        //console.log(request);
         $.getJSON(request, function(data) {
             if (data.status === "success") {
-                $("#result").html(
-                        'Room: ' + data.result[0].room_number);
+                x = $("#section").val() - 1;
+                roomnumber = data.result[x].room_number;
+                request = url + '?request=room&value=' + roomnumber;
+//                $("#result").html(
+//                        'Room: ' + data.result[0].room_number);
                         //'<br>Map Coordinates: ' + data.result[0].room_xval + ',' + data.result[0].room_yval
                         //);
                 //ShowPin(data.result[0].room_xval, data.result[0].room_yval);
-                DrawMap(
+                    $.getJSON(request, function(data) {
+                        if (roomnumber !== "") {
+                        console.log(data);
+                        DrawMap(
                     data.result[0].door_x, data.result[0].door_y, 
                     data.result[0].room_xval, data.result[0].room_yval,
                     data.result[0].room_number
                 );
+                        }  
                 console.log(data.result);
+                    });
             } else {
                 console.log(data.status);
                 console.log(data.message);
             }
+        });
+}
+}
+
+function GetDetails(){
+    
+    course = $("#course").val();
+    department = $("#department").val();
+
+    if (course !== "" && department !== "") {
+        request = url + '?request=section&value=' + department + "&value2=" + course;
+
+        console.log(request);
+        $.getJSON(request, function(data) {
+            if (data.status === "success") {
+                
+                j = $("#section").val() - 1;
+                //$("#request").html(j);
+                classnumber = data.result[j].class_number;
+                request = url + '?request=detail&value=' + classnumber;
+                console.log(request);
+                $.getJSON(request, function(data) {
+                if (classnumber !== ""){
+                    console.log(data);
+                    $("#result").html('Room: ' + data.result[0].room_number + '<br>Professor: ' + data.result[0].fac_last_name + ', ' 
+                            + data.result[0].fac_first_name + '<br>Course: '+ data.result[0].course_name
+                            + '<br>Scheduled day(s): ' + data.result[0].schedule_day  + '<br>Start time: '
+                            + data.result[0].schedule_start_time + '<br>End time: ' + data.result[0].schedule_end_time);
+                    }
+                });
+                }
         });
     }
 }
