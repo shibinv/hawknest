@@ -153,10 +153,11 @@ function GetDetails(){
         console.log(request);
         $.getJSON(request, function(data) {
             if (data.status === "success") {
-                
-                j = $("#section").val() - 1;
-                //$("#request").html(j);
+    
+                j = ($("#section option:selected").index()) - 1 ;
+                console.log(j);
                 classnumber = data.result[j].class_number;
+                    
                 request = url + '?request=detail&value=' + classnumber;
                 console.log(request);
                 $.getJSON(request, function(data) {
@@ -168,7 +169,7 @@ function GetDetails(){
                             + data.result[0].schedule_start_time + '<br>End time: ' + data.result[0].schedule_end_time);
                     }
                 });
-                }
+            }  
         });
     }
 }

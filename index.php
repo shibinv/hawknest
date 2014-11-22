@@ -45,7 +45,7 @@ require_once 'php/menu.php';
                         
                             <div class="pure-u-1-3">
                                 <label for="department">Section</label>
-                                <select id="section" name="section" onchange="GetRoom();" style="display:none;" class="pure-input-1-3">
+                                <select id="section" name="section" onchange="GetRoom(); GetDetails();" style="display:none;" class="pure-input-1-3">
                                     <option></option>
                                 </select>
                             </div>
@@ -72,7 +72,8 @@ require_once 'php/menu.php';
                     </div>
                 </div>
                 
-<?php 
+                <div id ="request"></div>
+<?php           
 
 require_once 'php/footer.php';
 
