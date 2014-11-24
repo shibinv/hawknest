@@ -115,8 +115,9 @@ function GetRoom(roomnumber) {
         //console.log(request);
         $.getJSON(request, function(data) {
             if (data.status === "success") {
-                x = $("#section").val() - 1;
+                x = $("#section option:selected").index() - 1;
                 roomnumber = data.result[x].room_number;
+                if (roomnumber !== 'Online') {
                 request = url + '?request=room&value=' + roomnumber;
 //                $("#result").html(
 //                        'Room: ' + data.result[0].room_number);
@@ -134,6 +135,7 @@ function GetRoom(roomnumber) {
                         }  
                 console.log(data.result);
                     });
+                }
             } else {
                 console.log(data.status);
                 console.log(data.message);
@@ -213,7 +215,7 @@ function DrawMap(dx, dy, px, py, room) {
     // create the grid
     var grid = new PF.Grid(30, 17, matrix);
     var finder = new PF.AStarFinder();
-    var path, path;
+    var path;
     
     // find path for level 1
     if (floor === 1) {
@@ -225,7 +227,31 @@ function DrawMap(dx, dy, px, py, room) {
     Levels(1, path);
     // find path for level 2
     if (floor === 2) {
-        path = finder.findPath(stair[0], stair[1], dx, dy, grid);
+        
+       matrix = [
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+            [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        ]; 
+        
+        grid = new PF.Grid(30, 17, matrix);
+        finder = new PF.AStarFinder();
+
+        path = finder.findPath(15, 7, dx, dy, grid);
         Levels(2, path);
         $("#mapcanvas2").show();
     }
@@ -246,6 +272,16 @@ function DrawMap(dx, dy, px, py, room) {
 }
 
 function Levels(level, path) {
+    var mheight, height, width;
+    if (level === 1) { 
+        mheight = 425; // set map height
+        height = 25; // set block size
+        width = 25; // set block size
+    } else {
+        mheight = 332;
+        height = 19; // set block size
+        width = 25; // set block size
+    }
     
     console.log("Level: " + level);
     console.log("Path: " + path);
@@ -255,20 +291,20 @@ function Levels(level, path) {
     var img = document.getElementById("map"+level);
     
     // clear the canvas
-    ctx.clearRect (0, 0, 750, 425);
+    ctx.clearRect (0, 0, 750, mheight);
     
     // draw map on to canvas
-    ctx.drawImage(img, 0, 0, 750, 425);
+    ctx.drawImage(img, 0, 0, 750, mheight);
     
     // draw a ractangle at starting location
     ctx.beginPath();
-    ctx.rect(path[0][0]*25, path[0][1]*25, 25, 25);
+    ctx.rect(path[0][0]*width, path[0][1]*height, width, height);
     ctx.fillStyle = '#50eb5f';
     ctx.fill();
     
     // draw a ractangle at ending location
     ctx.beginPath();
-    ctx.rect((path[path.length-1][0]*25), path[path.length-1][1]*25, 25, 25);
+    ctx.rect((path[path.length-1][0]*width), path[path.length-1][1]*height, width, height);
     ctx.fillStyle = 'red';
     ctx.fill();
     
@@ -277,8 +313,8 @@ function Levels(level, path) {
     ctx.strokeStyle="#fdb913";
     ctx.lineWidth = 3;
     for(x=1; x<path.length; x++) {
-        ctx.moveTo((path[x-1][0]+.5)*25, (path[x-1][1]+.5)*25);
-        ctx.lineTo((path[x][0]+.5)*25, (path[x][1]+.5)*25);
+        ctx.moveTo((path[x-1][0]+.5)*width, (path[x-1][1]+.5)*height);
+        ctx.lineTo((path[x][0]+.5)*width, (path[x][1]+.5)*height);
         ctx.stroke();
     }
     

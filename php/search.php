@@ -9,11 +9,11 @@
 $search = filter_input(INPUT_GET, 'term');
 
 if ($search != 'No Results') {
-
-    $json = file_get_contents("http://localhost/php/route.php?request=search&value=$search&type=json");
+    
+    $json = file_get_contents("http://localhost/php/route.php?request=search&value=".urlencode($search)."&type=json");
     $obj = json_decode($json);
-
-    $json = file_get_contents("http://localhost/php/route.php?request=poi&value=$search&type=json");
+    
+    $json = file_get_contents("http://localhost/php/route.php?request=poi&value=".urlencode($search)."&type=json");
     $poi = json_decode($json);
 
 

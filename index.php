@@ -26,7 +26,7 @@ require_once 'php/menu.php';
                         <div class="pure-g">
                             <div class="pure-u-1-3">
                                 <label for="department">Department</label>
-                                <select id="department" name="department" onchange="LoadCourse();" >
+                                <select id="department" name="department" onchange="LoadCourse();" class="pure-input">
                                     <option></option>
                                     <?php 
                                         foreach ($obj->result as $option) {
@@ -38,14 +38,14 @@ require_once 'php/menu.php';
                         
                             <div class="pure-u-1-3">
                                 <label for="course">Course</label>
-                                <select id="course" name="course" onchange="LoadSection();" style="display:none;" class="pure-input-1-3">
+                                <select id="course" name="course" onchange="LoadSection();" style="display:none;" class="pure-input">
                                     <option></option>
                                 </select>
                             </div>
                         
                             <div class="pure-u-1-3">
                                 <label for="department">Section</label>
-                                <select id="section" name="section" onchange="GetRoom(); GetDetails();" style="display:none;" class="pure-input-1-3">
+                                <select id="section" name="section" onchange="GetRoom(); GetDetails();" style="display:none;" class="pure-input">
                                     <option></option>
                                 </select>
                             </div>
@@ -63,8 +63,10 @@ require_once 'php/menu.php';
                 <div id="result"></div>
                 <div class="pure-g">
                     <div id="mapwrapper" class="pure-u-1">
+                        <h3>Delta Building Floor 1</h3>
                         <canvas id="mapcanvas1" width="750" height="425" class="pure-u-1 pure-img-responsive"></canvas>
-                        <canvas id="mapcanvas2" width="750" height="425" class="pure-u-1 pure-img-responsive"></canvas>
+                        <h3>Delta Building Floor 2</h3>
+                        <canvas id="mapcanvas2" width="750" height="332" class="pure-u-1 pure-img-responsive"></canvas>
                         <!--<input type="button" onclick="Test(3, 3);" value="test">-->
                         <img id="pin" src="img/pin32.png" alt="Pin" class="map">
                         <img id="map1" src="img/map-l1.png" alt="Level 1" class="map">
