@@ -122,53 +122,6 @@ function GetRoom(roomnumber, search) {
             });
         }   
     }
-
-    //roomnumber = roomnumber || $("#section").val();
-//
-//    course = $("#course").val();
-//    department = $("#department").val();
-//
-//    if (course !== "" && department !== "") {
-//        request = url + '?request=section&value=' + department + "&value2=" + course;
-//
-//
-////    if (roomnumber !== "") {
-////        request = url + '?request=room&value=' + roomnumber;
-//
-//        //console.log(request);
-//        $.getJSON(request, function(data) {
-//            if (data.status === "success") {
-//                if ($("#section option:selected").index() > 0) {
-//                    x = $("#section option:selected").index() - 1;
-//                    roomnumber = data.result[x].room_number;
-//                } else {
-//                    roomnumber = $("#search").val();
-//                }
-//                if (roomnumber !== 'Online') {
-//                    request = url + '?request=room&value=' + roomnumber;
-////                $("#result").html(
-////                        'Room: ' + data.result[0].room_number);
-//                    //'<br>Map Coordinates: ' + data.result[0].room_xval + ',' + data.result[0].room_yval
-//                    //);
-//                    //ShowPin(data.result[0].room_xval, data.result[0].room_yval);
-//                    $.getJSON(request, function(data) {
-//                        if (roomnumber !== "") {
-//                            console.log(data);
-//                            DrawMap(
-//                                    data.result[0].door_x, data.result[0].door_y,
-//                                    data.result[0].room_xval, data.result[0].room_yval,
-//                                    data.result[0].room_number
-//                                    );
-//                        }
-//                        console.log(data.result);
-//                    });
-//                }
-//            } else {
-//                console.log(data.status);
-//                console.log(data.message);
-//            }
-//        });
-//    }
 }
 
 function FindRoom(room) {
@@ -181,10 +134,10 @@ function FindRoom(room) {
             if (room !== "") {
                 console.log(data);
                 DrawMap(
-                        data.result[0].door_x, data.result[0].door_y,
-                        data.result[0].room_xval, data.result[0].room_yval,
-                        data.result[0].room_number
-                        );
+                    data.result[0].door_x, data.result[0].door_y,
+                    data.result[0].room_xval, data.result[0].room_yval,
+                    data.result[0].room_number
+                );
             }
             console.log(data.result);
         });
@@ -240,7 +193,7 @@ function DrawMap(dx, dy, px, py, room) {
     }
 
     // create a grid for map
-    var matrix = [
+    matrix = [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -270,10 +223,10 @@ function DrawMap(dx, dy, px, py, room) {
 
     // find path for level 1
     if (floor === 1) {
-        path = finder.findPath(16, 1, dx, dy, grid);
+        path = finder.findPath(16, 2, dx, dy, grid);
         $("#mapdiv2").hide();
     } else {
-        path = finder.findPath(16, 1, stair[0], stair[1], grid);
+        path = finder.findPath(16, 2, stair[0], stair[1], grid);
     }
     Levels(1, path);
     // find path for level 2
