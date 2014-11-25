@@ -63,10 +63,14 @@ require_once 'php/menu.php';
                 <div id="result"></div>
                 <div class="pure-g">
                     <div id="mapwrapper" class="pure-u-1">
-                        <h3>Delta Building Floor 1</h3>
-                        <canvas id="mapcanvas1" width="750" height="425" class="pure-u-1 pure-img-responsive"></canvas>
-                        <h3>Delta Building Floor 2</h3>
-                        <canvas id="mapcanvas2" width="750" height="332" class="pure-u-1 pure-img-responsive"></canvas>
+                        <div id="mapdiv1" class="hidden">
+                            <h3 class="floor">Delta Building - First Floor</h3>
+                            <canvas id="mapcanvas1" width="750" height="425" class="pure-u-1 pure-img-responsive"></canvas>
+                        </div>
+                        <div id="mapdiv2" class="hidden">
+                            <h3 class="floor">Delta Building - Second Floor</h3>
+                            <canvas id="mapcanvas2" width="750" height="332" class="pure-u-1 pure-img-responsive"></canvas>
+                        </div>
                         <!--<input type="button" onclick="Test(3, 3);" value="test">-->
                         <img id="pin" src="img/pin32.png" alt="Pin" class="map">
                         <img id="map1" src="img/map-l1.png" alt="Level 1" class="map">
