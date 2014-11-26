@@ -269,8 +269,11 @@ function DrawMap(dx, dy, px, py, room) {
 
     // draw pin on destination floor
     img = document.getElementById("pin");
-    ctx.drawImage(img, px - 16, py - 32, 32, 32);
-
+    if (floor === 1) {
+        ctx.drawImage(img, px - 16, py - 32, 32, 32);
+    } else {
+        ctx.drawImage(img, px - 16, py - 32 - 77, 32, 32); // take 77 px for cropping 
+    }
     // show the canvas
     //$("#mapwrapper").show();
     $("#mapdiv1").show();
