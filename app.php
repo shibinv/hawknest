@@ -1,5 +1,5 @@
 <?php
-$page = "Download App";
+$title = "Download App";
 
 require_once 'php/header.php';
 require_once 'php/menu.php';

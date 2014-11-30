@@ -11,7 +11,7 @@ $obj = json_decode($json);
 
 //var_dump($obj);
 // debugging
-$title = "Hawknest - Home";
+$title = "Home";
 
 if (isset($obj->status) && $obj->status == "success") {
 

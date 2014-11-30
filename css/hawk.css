@@ -41,6 +41,24 @@ and open the template in the editor.
 }
 
 
+.faq {
+    padding: 20px 0px 0px 10px;
+    
+}
+
+.question {
+    padding: 10px 0 0 0;
+    font-weight: bold;
+    font-size: 18px;
+    color: #006aa6;
+}
+
+.answer {
+    font-style: italic;
+    //background: #00b159;
+    color: #000;
+}
+
 /* CSS Document */
 
 /*
